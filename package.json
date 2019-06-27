@@ -1,0 +1,22 @@
+{
+  "name": "pin-it",
+  "version": "0.1.0",
+  "description": "pin-it",
+  "main": "app.js",
+  "author": "Zoë Shackleton",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "pin-it"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "pin"
+  ],
+  "license": "MIT"
+}

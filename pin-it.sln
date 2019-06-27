@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "pin-it", "pin-it.njsproj", "{A3227F15-BAF1-4E5E-9065-8B4C73134320}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3227F15-BAF1-4E5E-9065-8B4C73134320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3227F15-BAF1-4E5E-9065-8B4C73134320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3227F15-BAF1-4E5E-9065-8B4C73134320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3227F15-BAF1-4E5E-9065-8B4C73134320}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87C3A034-2B9F-4933-979C-2C6CE0CFB844}
+	EndGlobalSection
+EndGlobal
