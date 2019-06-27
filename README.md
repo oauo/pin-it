@@ -1,4 +1,4 @@
-﻿# <img src="./logo.png" height="20"> Pin It 
+﻿# <img src="./logo.png" height="24"> Pin It 
 
 ## Let the community vote on pinning messages
 
