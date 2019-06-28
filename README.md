@@ -6,6 +6,6 @@ Pins can get a bit stale, let users just add 📌 reaction to messages they like
 
 Invite the bot with the ability to manage messages (remove reactions if someone tries to pin their own message), and add reactions: `https://discordapp.com/api/oauth2/authorize?client_id=<YOUR_CLIENT_ID>&permissions=8256&scope=bot`
 
-There is only 1 command `:pushpin: x %n` where `%n` is the number of pin reactions needed to be pinned.
+There is only 1 command `:pushpin: x %n` where `%n` is the number of pin reactions needed to be pinned, you must have manage messages permission (also spaces are irrelevant).
 
 ![Pinned](./pinning.gif)
