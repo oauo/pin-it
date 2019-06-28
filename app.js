@@ -1,11 +1,12 @@
 'use strict';
 
 const Discord = require("discord.js"), Client = new Discord.Client();
-let _tempconfig; try { _tempconfig = require("./config.json"); } catch { _tempconfig = { token: "TOKEN HERE", pinsRequired: 5 }; }; const config = _tempconfig;
+let _tempconfig; try { _tempconfig = require("./config.json"); } catch { _tempconfig = { token: "TOKEN HERE", pinsRequired: 5, blockedChannels: [] }; }; const config = _tempconfig;
 const fs = require('fs');
 const Emojis = {
     pushpin: "\u{1f4cc}",
-    thumbsup: "\u{1f44D}"
+    thumbsup: "\u{1f44d}",
+    thumbsdown: "\u{1f44e}"
 }
 
 //Bot
@@ -35,8 +36,7 @@ const storeData = (data, path) => {
 
 const onReady = () => {
     Client.user.setActivity("Pinning messages");
-    [...Client.guilds.values()].forEach(g => { //Fetch latest 100 messages from each text channel from all guilds - so it works on some messages it wasn't around for.
-        console.log(g.name);
+    [...Client.guilds.values()].forEach(g => { //Fetch latest 100 messages from each text channel - so it works on some messages it wasn't around for.
         g.channels.filter(x => x.type == "text").forEach(c => {
             c.fetchMessages({ limit: 100 }).catch(() => { });
         });
@@ -45,17 +45,35 @@ const onReady = () => {
 }
 
 const onMessage = message => {
-    console.log(message.content);
     if (message.content.indexOf(Emojis.pushpin) == 0 && message.guild.members.get(message.author.id).hasPermission("MANAGE_MESSAGES")) {
-        config.pinsRequired = parseInt(message.content.match(/x *(\d+)/)[1]);
-        storeData(config, "./config.json");
-        message.react(Emojis.thumbsup);
+        let channelId = parseInt(message.channel.id);
+        let noWhitespace = message.content.replace(/ /g, "");
+        if (noWhitespace.indexOf(Emojis.thumbsdown) == 2) {
+            if (config.blockedChannels.indexOf(channelId) == -1) {
+                config.blockedChannels.push(channelId);
+            }
+            messageSuccess(message);
+            setTimeout(function () {
+                message.delete();
+            }, 5000);
+        } else if (noWhitespace.indexOf(Emojis.thumbsup) == 2) {
+            config.blockedChannels = config.blockedChannels.filter(x => x != channelId);
+            messageSuccess(message);
+        } else if (/x(\d+)/.test(noWhitespace)) {
+            config.pinsRequired = parseInt(message.content.match(/x *(\d+)/)[1]);
+            messageSuccess(message);
+        }
     }
+}
+
+const messageSuccess = message => {
+    storeData(config, "./config.json");
+    message.react(Emojis.thumbsup);
 }
 
 const onMessageReactionAdd = (messageReaction, user) => {
     if (messageReaction.emoji.name == Emojis.pushpin) {
-        if (messageReaction.message.author.id == user.id) {
+        if (messageReaction.message.author.id == user.id || config.blockedChannels.indexOf(parseInt(messageReaction.message.channel.id)) != -1) {
             messageReaction.remove(user).catch(() => { console.log("Bot does not have permission to remove reactions from messages, give \"Manage messages\" permission.") });
         } else if (messageReaction.count >= config.pinsRequired) {
             messageReaction.message.pin().catch(() => {
